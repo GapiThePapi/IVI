@@ -1,0 +1,17 @@
+# Deploy from this repository's root. Free instances sleep when idle.
+services:
+  - type: web
+    name: deki
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    numInstances: 1
+    healthCheckPath: /health
+    autoDeployTrigger: off
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3001"

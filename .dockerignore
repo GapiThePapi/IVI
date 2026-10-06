@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.tools
+.env
+.env.*
+*.log
+android
+releases
+test-results
+playwright-report

@@ -1,0 +1,17 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+.env
+*.log
+.tools/
+.pnpm-store/
+.codex-remote-attachments/
+output/
+exports/
+github-publish/
+design/
+*.jpg
+android/build/
+android/.private/
+releases/
