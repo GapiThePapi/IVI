@@ -77,7 +77,7 @@ test('Android offers a newer IVI release on opening', async ({ page }) => {
     (route) => route.fulfill({
       contentType: 'application/json',
       body: JSON.stringify({
-        version: '1.0.5',
+        version: '1.0.6',
         downloadUrl: 'https://example.com/IVI-Android.apk',
         notes: 'A tested update.',
       }),
@@ -86,7 +86,7 @@ test('Android offers a newer IVI release on opening', async ({ page }) => {
   await page.goto('/');
   const dialog = page.getByRole('dialog', { name: 'IVI update available' });
   await expect(dialog).toBeVisible();
-  await expect(dialog).toContainText('Version 1.0.5 is ready');
+  await expect(dialog).toContainText('Version 1.0.6 is ready');
   await expect(dialog.getByRole('link', { name: 'Download update' })).toHaveAttribute(
     'href',
     'https://example.com/IVI-Android.apk',

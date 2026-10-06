@@ -1,5 +1,5 @@
 {
-  "version": "1.0.4",
-  "downloadUrl": "https://gofile.io/d/0B9QlYgb",
-  "notes": "The first IVI release: new branding, 4–8 player tables, selectable lives, improved cards, profiles, bots, and mobile layout."
+  "version": "1.0.5",
+  "downloadUrl": "https://github.com/GapiThePapi/IVI/releases/latest/download/IVI-Android.apk",
+  "notes": "Adds automatic update checks on startup and a stable GitHub release download, alongside the complete IVI redesign."
 }
