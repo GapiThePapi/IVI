@@ -30,6 +30,8 @@ import {
 } from 'lucide-react';
 import { SoloSetup, DifficultySelect, DIFFICULTY_HELP } from './SoloSetup';
 import { LayoutSettings, applyLayout, readLayout } from './LayoutSettings';
+import { CardSkinSettings } from './CardSkinSettings';
+import { CardDesignGallery } from './CardDesignGallery';
 import type { Difficulty, Card, Command, GameView, PlayerView } from '../shared/types';
 import { PlayingCard, SetMark, SETS } from './Card';
 import { useGame } from './useGame';
@@ -524,20 +526,24 @@ function Lobby({
   );
 }
 function CallCount({ player }: { player: PlayerView }) {
+  const call = player.bid ?? '?';
   return (
     <span
       className={`call-count call-${callStatus(player.wins, player.bid)}`}
-      aria-label={`${player.bid ?? 'no'} called, ${player.wins} won`}
+      aria-label={
+        player.bid === null
+          ? `Call not declared, ${player.wins} won`
+          : `${player.bid} called, ${player.wins} won`
+      }
     >
       <strong>
         {callStatus(player.wins, player.bid) === 'exact' && (
           <Check className="exact-check" size={16} />
         )}
-        {player.bid ?? '–'}
+        {call}
         <span> / </span>
         {player.wins}
       </strong>
-      <small>CALL / WON</small>
     </span>
   );
 }
@@ -560,7 +566,6 @@ function PlayerSeat({
         <div className="seat-name">
           <b title={player.name}>
             {player.name}
-            {player.id === game.youId && player.name !== 'You' && <span> · you</span>}
           </b>
           <small>
             {player.eliminated
@@ -1237,7 +1242,7 @@ export default function App() {
   const [splash, setSplash] = useState(true);
   const [update, setUpdate] = useState<UpdateManifest | null>(null);
   useEffect(() => {
-    const timer = window.setTimeout(() => setSplash(false), 1400);
+    const timer = window.setTimeout(() => setSplash(false), 900);
     return () => clearTimeout(timer);
   }, []);
   useEffect(() => {
@@ -1250,6 +1255,7 @@ export default function App() {
   }, []);
   const [rules, setRules] = useState(false);
   const [settings, setSettings] = useState(false);
+  const [designGallery, setDesignGallery] = useState(false);
   useEffect(() => applyLayout(readLayout()), []);
   const [confirm, setConfirm] = useState<{
     title: string;
@@ -1272,9 +1278,7 @@ export default function App() {
     <>
       {splash && (
         <div className="app-splash" role="status" aria-label="Welcome to IVI">
-          <span className="splash-welcome">Welcome to</span>
-          <img className="splash-art" src="/assets/ivi-logo.svg" alt="" />
-          <span className="splash-logo ivi-wordmark">IV<span>I</span></span>
+          <img className="splash-art" src="/assets/ivi-logo.svg" alt="IVI" />
         </div>
       )}
       <Header
@@ -1376,9 +1380,16 @@ export default function App() {
               setSettings(false);
             }}
           />
+          <CardSkinSettings
+            onExplore={() => {
+              setSettings(false);
+              setDesignGallery(true);
+            }}
+          />
           <LayoutSettings />
         </Modal>
       )}
+      {designGallery && <CardDesignGallery close={() => setDesignGallery(false)} />}
       {update && (
         <Modal title="IVI update available" close={() => setUpdate(null)}>
           <div className="update-copy">

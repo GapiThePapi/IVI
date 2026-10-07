@@ -1,4 +1,4 @@
-export const CURRENT_APP_VERSION = '1.0.5';
+export const CURRENT_APP_VERSION = '1.0.6';
 
 export const UPDATE_MANIFEST_URL =
   'https://raw.githubusercontent.com/GapiThePapi/IVI/main/public/ivi-update.json';

@@ -58,6 +58,11 @@ async function createTable(browser: Browser, count: number): Promise<Seat[]> {
 async function start(seats: Seat[]) {
   await seats[0].page.getByRole('button', { name: 'Deal the cards' }).click();
   await expect.poll(() => seats.every((s) => s.view?.phase === 'bidding')).toBe(true);
+  await expect(seats[0].page.locator('.poker-seat .call-count').first()).toContainText('? / 0');
+  await expect(seats[0].page.locator('.poker-seat .call-count small')).toHaveCount(0);
+  await expect(
+    seats[0].page.locator('.poker-seat .seat-name b').filter({ hasText: '· you' }),
+  ).toHaveCount(0);
 }
 async function callBids(seats: Seat[]) {
   while (seats[0].view?.phase === 'bidding') {
@@ -87,6 +92,13 @@ async function playRound(seats: Seat[]) {
 }
 async function noOverflow(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+}
+
+async function fitsViewportWidth(page: Page, width: number, height: number) {
+  await page.setViewportSize({ width, height });
+  await noOverflow(page);
+  await expect(page.locator('.poker-table')).toBeVisible();
+  await expect(page.locator('.hand-panel')).toBeVisible();
 }
 
 test('landing, mobile layout, keyboard rules dialog, and LAN-safe request IDs', async ({
@@ -183,8 +195,17 @@ test('eight-player table reaches the blind round and reveals every card together
     await seats[0].page.screenshot({ path: 'test-results/eight-desktop.png', fullPage: true });
     await seats[1].page.screenshot({ path: 'test-results/eight-mobile.png', fullPage: true });
     await noOverflow(seats[1].page);
+    for (const viewport of [
+      { width: 320, height: 568 },
+      { width: 360, height: 800 },
+      { width: 412, height: 915 },
+      { width: 667, height: 375 },
+      { width: 768, height: 1024 },
+      { width: 1024, height: 768 },
+    ]) {
+      await fitsViewportWidth(seats[1].page, viewport.width, viewport.height);
+    }
     await seats[1].page.setViewportSize({ width: 320, height: 740 });
-    await noOverflow(seats[1].page);
     await seats[1].page.screenshot({ path: 'test-results/eight-small-phone.png', fullPage: true });
     await seats[1].page.setViewportSize({ width: 390, height: 844 });
     for (let round = 1; round <= 4; round++) {

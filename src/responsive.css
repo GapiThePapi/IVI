@@ -1,0 +1,607 @@
+/*
+ * Authoritative responsive layout.
+ *
+ * This file intentionally loads after the legacy presentation layers. It owns
+ * geometry and responsive behavior; colors, card skins and decorative details
+ * stay in their feature stylesheets.
+ */
+
+html {
+  min-width: 20rem;
+  overflow-x: clip;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+#root {
+  min-width: 20rem;
+  min-height: 100%;
+}
+
+body {
+  overflow-x: clip;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+.site-header,
+.page-wrap,
+.game-page {
+  width: min(100%, calc(var(--content-max) + (2 * var(--page-gutter))));
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.site-header {
+  min-height: var(--header-height);
+  height: auto;
+  padding-top: env(safe-area-inset-top, 0px);
+  gap: var(--space-3);
+}
+
+.site-header nav {
+  min-width: 0;
+  gap: clamp(0.125rem, 1.4vw, 0.75rem);
+}
+
+.icon-button,
+.site-header .text-button,
+.button,
+.difficulty-options button,
+.bid-options button,
+.prediction-button {
+  min-height: var(--control-min);
+}
+
+.icon-button {
+  min-width: var(--control-min);
+}
+
+.brand-link,
+.brand {
+  min-width: 0;
+}
+
+.brand .brand-art {
+  width: clamp(2.25rem, 4vw, 2.75rem);
+  height: clamp(2.25rem, 4vw, 2.75rem);
+  margin-right: clamp(0.25rem, 0.8vw, 0.5rem);
+}
+
+.brand .ivi-wordmark {
+  font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+  margin-right: clamp(0.25rem, 1vw, 0.75rem);
+}
+
+.entry-home {
+  width: min(100%, 30rem);
+  max-width: none;
+  margin: clamp(1rem, 4vh, 2rem) auto 0;
+  padding: 0 var(--page-gutter) calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  container-type: inline-size;
+}
+
+.home-profile {
+  margin-bottom: clamp(1.75rem, 7vh, 3rem);
+}
+
+.home-actions {
+  gap: clamp(0.625rem, 2vw, 0.875rem);
+}
+
+.home-actions > button {
+  min-height: 4.5rem;
+  gap: clamp(0.75rem, 4cqw, 1.125rem);
+  padding: clamp(1rem, 5cqw, 1.5rem);
+  font-size: clamp(1rem, 4.8cqw, 1.25rem);
+}
+
+.entry-panel,
+.entry-panel form,
+.profile-editor {
+  gap: var(--space-4);
+}
+
+.entry-panel h1 {
+  margin-block: clamp(1rem, 5cqw, 1.375rem);
+  font-size: clamp(1.5rem, 7cqw, 1.875rem);
+  overflow-wrap: anywhere;
+}
+
+.page-wrap {
+  padding-top: clamp(1rem, 3vw, 2rem);
+  padding-bottom: calc(clamp(2rem, 6vw, 4.5rem) + env(safe-area-inset-bottom, 0px));
+}
+
+.lobby-title {
+  margin: 0 0 clamp(1.25rem, 4vw, 2rem);
+}
+
+.lobby-title h1 {
+  max-width: 100%;
+  font-size: var(--text-title);
+  overflow-wrap: anywhere;
+}
+
+:root .lobby-layout {
+  width: min(100%, 38.75rem);
+  max-width: none;
+}
+
+.lobby-roster {
+  min-width: 0;
+  container-type: inline-size;
+}
+
+.roster-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  gap: clamp(0.5rem, 2cqw, 0.875rem);
+  min-height: clamp(4.5rem, 16cqw, 5.25rem);
+}
+
+.roster-name > b,
+.roster-name > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ready-status {
+  justify-content: center;
+  min-height: 1.75rem;
+  padding-inline: 0.5rem;
+}
+
+.kick-button {
+  width: var(--control-min);
+  height: var(--control-min);
+}
+
+.lobby-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.lobby-actions > .button,
+.lobby-actions > .lives-setting,
+.lobby-actions > .difficulty-select,
+.lobby-actions > .difficulty-description,
+.lobby-actions > .lives-summary {
+  min-width: 0;
+}
+
+.lobby-actions > .button.dark,
+.lobby-actions > .difficulty-description {
+  grid-column: 1 / -1;
+}
+
+.game-page,
+.native-app .game-page,
+.game-page:has(.poker-table) {
+  height: auto;
+  min-height: calc(100dvh - var(--header-height));
+  padding-top: clamp(0.25rem, 1vw, 0.75rem);
+  padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  overflow: visible;
+}
+
+.game-topline {
+  gap: var(--space-3);
+  margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.game-topline h1 {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.game-layout,
+.native-app .game-layout {
+  display: block;
+  min-height: 0;
+}
+
+.game-main,
+.native-app .game-main {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  container-type: inline-size;
+}
+
+.table-surface,
+.game-page:has(.poker-table) .table-surface {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: clamp(0.625rem, 2cqw, 1.125rem);
+  overflow: visible;
+}
+
+.table-meta,
+.game-page:has(.poker-table) .table-meta {
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-xs);
+  line-height: 1.35;
+}
+
+.poker-table,
+.game-page:has(.poker-table) .poker-table {
+  width: 100%;
+  height: clamp(20rem, 58cqw, 28rem);
+  min-height: 0;
+  flex: 0 0 auto;
+}
+
+.poker-table-dense,
+.game-page:has(.poker-table) .poker-table-dense {
+  height: clamp(27.5rem, 76cqw, 35rem);
+}
+
+.poker-felt {
+  inset: 12% clamp(7%, 4cqw, 10%);
+}
+
+:root .poker-seat {
+  width: clamp(var(--seat-min), 15cqw, var(--seat-max));
+}
+
+:root .poker-table-dense .poker-seat {
+  width: clamp(4.25rem, 12cqw, 6.75rem);
+}
+
+:root .poker-seat .player-seat {
+  width: 100%;
+  padding: clamp(0.25rem, 1cqw, 0.5rem);
+}
+
+:root .poker-seat-active .player-seat {
+  padding: calc(clamp(0.25rem, 1cqw, 0.5rem) - 1px);
+}
+
+:root .poker-seat .seat-top > .avatar {
+  width: clamp(1.75rem, 5cqw, 2.375rem);
+  height: clamp(1.75rem, 5cqw, 2.375rem);
+}
+
+:root .poker-table-dense .poker-seat .seat-top > .avatar {
+  width: clamp(1.5rem, 4cqw, 2rem);
+  height: clamp(1.5rem, 4cqw, 2rem);
+}
+
+:root .poker-seat .seat-name b {
+  max-width: 100%;
+  font-size: clamp(0.6875rem, 1.8cqw, 0.8125rem);
+  line-height: 1.15;
+  overflow: hidden;
+  overflow-wrap: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:root .poker-seat .call-count strong,
+:root .poker-seat .call-count strong span {
+  font-size: clamp(0.9375rem, 2.6cqw, 1.25rem);
+}
+
+.trick-grid {
+  width: min(44%, 18.75rem);
+  gap: clamp(0.1875rem, 0.8cqw, 0.4375rem);
+}
+
+.trick-slot .playing-card {
+  width: clamp(1.875rem, 5.5cqw, 3.25rem);
+}
+
+.hand-panel,
+.game-page:has(.poker-table) .hand-panel,
+.native-app .hand-panel {
+  max-height: none;
+  padding: clamp(0.75rem, 2cqw, 1rem) 0;
+  overflow: visible;
+}
+
+.hand-content,
+.game-page:has(.poker-table) .hand-content,
+.native-app .hand-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(13.75rem, 18.75rem);
+  align-items: center;
+  gap: clamp(0.75rem, 3cqw, 1.75rem);
+}
+
+:root .hand-cards {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: clamp(0.25rem, 1cqw, 0.5rem);
+  min-width: 0;
+  padding: 0.375rem;
+}
+
+:root .hand-cards .hand-card.throw-card,
+:root .hand-card.throw-card {
+  flex: 0 1 min(var(--card-max), calc((100% - 2rem) / 5));
+  min-width: 0;
+  max-width: var(--card-max);
+  margin-left: 0;
+}
+
+.hand-action {
+  min-width: 0;
+}
+
+.bid-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--control-min), 1fr));
+}
+
+.blind-cards,
+.reveal-row,
+.history-cards {
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.modal {
+  width: min(37.5rem, calc(100% - (2 * var(--page-gutter))));
+  max-width: none;
+  max-height: calc(100dvh - (2 * var(--page-gutter)));
+  padding: clamp(1rem, 4vw, 1.875rem);
+  margin: auto;
+  overscroll-behavior: contain;
+}
+
+.modal-actions,
+.table-menu-actions {
+  gap: var(--space-2);
+}
+
+.card-skin-options {
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+}
+
+.card-skin-option {
+  min-height: var(--control-min);
+}
+
+@container (max-width: 31.25rem) {
+  .roster-row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    padding-block: var(--space-2);
+  }
+
+  .roster-row .host-crown {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .roster-row .ready-status {
+    grid-column: 2;
+    justify-self: start;
+    padding-inline: 0;
+    background: transparent;
+  }
+
+  .roster-row .kick-button {
+    grid-column: 3;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 63.9375rem) {
+  .game-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 56.25rem) {
+  .hand-content,
+  .game-page:has(.poker-table) .hand-content,
+  .native-app .hand-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  :root .hand-cards {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  .site-header .text-button > span,
+  .connection-status,
+  .brand-tag {
+    display: none;
+  }
+
+  .game-top-actions > .pill {
+    display: none;
+  }
+
+  .lobby-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .lobby-actions > .button.dark,
+  .lobby-actions > .difficulty-description {
+    grid-column: auto;
+  }
+
+  .poker-table,
+  .game-page:has(.poker-table) .poker-table {
+    height: clamp(20rem, 100cqw, 25rem);
+  }
+
+  .poker-table-dense,
+  .game-page:has(.poker-table) .poker-table-dense {
+    height: clamp(28rem, 145cqw, 34rem);
+  }
+
+  :root .poker-seat {
+    width: clamp(5rem, 27cqw, 6.875rem);
+  }
+
+  :root .poker-table-dense .poker-seat {
+    width: clamp(4.25rem, 21cqw, 5rem);
+  }
+
+  .trick-grid {
+    width: 44%;
+  }
+
+  .trick-slot > span {
+    display: none;
+  }
+
+  .table-menu-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 29.9375rem) {
+  .site-header {
+    min-height: 4.25rem;
+  }
+
+  .site-header nav {
+    margin-left: auto;
+  }
+
+  .site-header .icon-button,
+  .site-header .text-button {
+    min-width: 2.5rem;
+    min-height: 2.75rem;
+  }
+
+  .brand .brand-art {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .brand .ivi-wordmark {
+    font-size: 1.5rem;
+  }
+
+  .page-wrap,
+  .game-page {
+    padding-inline: var(--page-gutter);
+  }
+
+  .roster-row .avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .poker-felt {
+    inset-inline: 5%;
+  }
+
+  :root .poker-seat .hp {
+    display: none;
+  }
+
+  :root .hand-cards {
+    gap: 0.1875rem;
+    padding-inline: 0.125rem;
+  }
+
+  :root .hand-cards .hand-card.throw-card,
+  :root .hand-card.throw-card {
+    flex-basis: calc((100% - 0.75rem) / 5);
+  }
+
+  .modal-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 40rem) and (max-height: 37.5rem) {
+  :root {
+    --header-height: 3rem;
+  }
+
+  .site-header {
+    min-height: var(--header-height);
+    padding-inline: var(--page-gutter);
+  }
+
+  .brand .brand-art {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .game-page,
+  .native-app .game-page {
+    min-height: calc(100dvh - var(--header-height));
+    padding-bottom: var(--space-3);
+  }
+
+  .game-topline,
+  .round-rail {
+    margin-bottom: var(--space-2);
+  }
+
+  .game-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(16rem, 1fr);
+    gap: var(--space-4);
+    align-items: start;
+  }
+
+  .poker-table,
+  .game-page:has(.poker-table) .poker-table {
+    height: clamp(17.5rem, calc(100dvh - 8rem), 22rem);
+  }
+
+  .poker-table-dense,
+  .game-page:has(.poker-table) .poker-table-dense {
+    height: clamp(25rem, 70cqw, 30rem);
+  }
+
+  .hand-content,
+  .game-page:has(.poker-table) .hand-content,
+  .native-app .hand-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  :root .hand-cards {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  :root .hand-cards .hand-card.throw-card,
+  :root .hand-card.throw-card {
+    flex: 0 1 min(5rem, calc((100% - 1rem) / 3));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "downloadUrl": "https://github.com/GapiThePapi/IVI/releases/latest/download/IVI-Android.apk",
-  "notes": "Adds automatic update checks on startup and a stable GitHub release download, alongside the complete IVI redesign."
+  "notes": "Adds an offline gallery with ten researched card-design directions, complete card faces, special cards, and coordinated backs."
 }
