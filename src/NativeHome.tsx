@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Users, Plus, Gamepad2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { DifficultySelect } from './SoloSetup';
 import { ProfileEditor, AvatarArt, readProfile, saveProfile, type Profile } from './Profile';
 import type { Difficulty, Command } from '../shared/types';
@@ -12,6 +12,7 @@ export default function NativeHome({
   startPractice,
   retry,
   connectionFailed,
+  onRules,
 }: {
   retry: () => void;
   connectionFailed: boolean;
@@ -20,6 +21,7 @@ export default function NativeHome({
   restoring: boolean;
   connected: boolean;
   startPractice: (n: string, d: Difficulty) => void;
+  onRules: () => void;
 }) {
   const invite = new URLSearchParams(location.search).get('room')?.toUpperCase() ?? '';
   const [screen, setScreen] = useState<'home' | 'solo' | 'create' | 'join'>(
@@ -59,16 +61,16 @@ export default function NativeHome({
       ) : screen === 'home' ? (
         <div className="home-actions">
           <button onClick={() => choose('solo')}>
-            <Gamepad2 />
             <span>Play solo</span>
           </button>
           <button onClick={() => choose('create')}>
-            <Plus />
             <span>Create a lobby</span>
           </button>
           <button onClick={() => choose('join')}>
-            <Users />
             <span>Join a lobby</span>
+          </button>
+          <button onClick={onRules}>
+            <span>How to play</span>
           </button>
         </div>
       ) : (
@@ -86,11 +88,6 @@ export default function NativeHome({
           {screen === 'solo' ? (
             <>
               <DifficultySelect value={difficulty} onChange={setDifficulty} />
-              {!connected && (
-                <button type="button" className="button secondary" onClick={retry}>
-                  Retry connection
-                </button>
-              )}
               <button
                 className="button primary full"
                 disabled={!profile.name}

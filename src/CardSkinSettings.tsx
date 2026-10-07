@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PlayingCard } from './Card';
 
 export const CARD_SKINS = [
-  { id: 'obsidian', name: 'Obsidian', description: 'The IVI signature' },
-  { id: 'classic', name: 'Classic', description: 'Clean & timeless' },
-  { id: 'noir', name: 'Noir', description: 'Dark & electric' },
-  { id: 'pop', name: 'Pop', description: 'Bold & playful' },
-  { id: 'atelier', name: 'Atelier', description: 'Warm & editorial' },
+  { id: 'obsidian', name: 'IVI Essential', description: 'Confident & signature' },
+  { id: 'classic', name: 'Classic Casino', description: 'Familiar & timeless' },
+  { id: 'noir', name: 'Noir Neon', description: 'Dark & electric' },
+  { id: 'deco', name: 'Art Deco', description: 'Navy & gold' },
+  { id: 'nordic', name: 'Nordic Minimal', description: 'Calm & spacious' },
+  { id: 'atelier', name: 'Botanical', description: 'Warm & organic' },
+  { id: 'pop', name: 'Bauhaus Pop', description: 'Bold & playful' },
+  { id: 'arcade', name: 'Retro Arcade', description: 'Pixel & vivid' },
+  { id: 'cosmic', name: 'Cosmic', description: 'Luminous & stellar' },
+  { id: 'accessible', name: 'High Contrast', description: 'Clear & legible' },
 ] as const;
 
 export type CardSkin = (typeof CARD_SKINS)[number]['id'];
@@ -27,10 +32,17 @@ export function applyCardSkin(skin: CardSkin) {
   } catch {
     /* Local storage is optional. */
   }
+  window.dispatchEvent(new CustomEvent<CardSkin>('ivi-card-skin-change', { detail: skin }));
 }
 
 export function CardSkinSettings({ onExplore }: { onExplore: () => void }) {
   const [skin, setSkin] = useState(readCardSkin);
+
+  useEffect(() => {
+    const syncSkin = (event: Event) => setSkin((event as CustomEvent<CardSkin>).detail);
+    window.addEventListener('ivi-card-skin-change', syncSkin);
+    return () => window.removeEventListener('ivi-card-skin-change', syncSkin);
+  }, []);
 
   return (
     <section className="card-skin-settings" aria-labelledby="card-skin-title">
@@ -44,7 +56,7 @@ export function CardSkinSettings({ onExplore }: { onExplore: () => void }) {
       <button type="button" className="design-gallery-entry" onClick={onExplore}>
         <span>
           <strong>Explore 10 card designs</strong>
-          <small>Compare five complete card views in every direction</small>
+          <small>Compare complete card families, then apply your favorite</small>
         </span>
         <span aria-hidden="true">→</span>
       </button>
@@ -68,7 +80,9 @@ export function CardSkinSettings({ onExplore }: { onExplore: () => void }) {
               <strong>{option.name}</strong>
               <small>{option.description}</small>
             </span>
-            <span className="card-skin-check" aria-hidden="true">✓</span>
+            <span className="card-skin-check" aria-hidden="true">
+              ✓
+            </span>
           </button>
         ))}
       </div>

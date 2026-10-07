@@ -37,6 +37,7 @@ test('entry and settings reflow across supported viewport classes', async ({ pag
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
   await expect(dialog).toHaveCSS('overflow-y', 'auto');
+  await dialog.screenshot({ path: 'design/qa-settings-player-display-mobile.png' });
   await expectNoHorizontalOverflow(page);
 });
 
@@ -69,4 +70,29 @@ test('player display selection persists between visits', async ({ page }) => {
 
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-player-display', 'stack');
+});
+
+test('all card designs are selectable from the gallery and persist', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await page.getByRole('button', { name: /Explore 10 card designs/ }).click();
+
+  await expect(page.getByRole('dialog', { name: 'Card design gallery' })).toBeVisible();
+  await expect(page.locator('.concept-card')).toHaveCount(5);
+  await expect(page.locator('.gallery-dots button')).toHaveCount(10);
+  await page
+    .getByRole('dialog', { name: 'Card design gallery' })
+    .screenshot({ path: 'design/qa-card-gallery-mobile.png' });
+
+  await page.getByRole('button', { name: 'Show Cosmic Holographic' }).click();
+  await page.getByRole('button', { name: 'Use this design' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-card-skin', 'cosmic');
+  await expect(page.getByRole('button', { name: 'Selected' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-card-skin', 'cosmic');
 });

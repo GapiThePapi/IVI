@@ -1132,3 +1132,360 @@ textarea::placeholder {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* October UI refinement: quieter entry screen and visual settings previews. */
+:root,
+:root[data-theme='dark'] {
+  --ivi-home-action: var(--ivi-surface);
+  --ivi-home-action-hover: var(--ivi-surface-soft);
+}
+
+:root[data-theme='light'] {
+  --ivi-home-action: #ffffff;
+  --ivi-home-action-hover: #f0f0ed;
+}
+
+.site-header {
+  justify-content: flex-end;
+}
+
+.home-profile {
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: clamp(36px, 8vh, 56px);
+  color: var(--ivi-text) !important;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.home-profile .avatar {
+  width: 82px;
+  height: 82px;
+}
+
+.home-actions > button,
+.home-actions > button:first-child,
+.home-actions > button:not(:first-child) {
+  justify-content: center;
+  padding: 22px 20px !important;
+  border: 0 !important;
+  background: var(--ivi-home-action) !important;
+  color: var(--ivi-text) !important;
+  box-shadow: none !important;
+  text-align: center;
+}
+
+.home-actions > button:hover,
+.home-actions > button:first-child:hover,
+.home-actions > button:not(:first-child):hover {
+  border: 0 !important;
+  background: var(--ivi-home-action-hover) !important;
+  color: var(--ivi-text) !important;
+}
+
+/* Card families share one borderless, rounded physical silhouette. */
+:root .playing-card,
+:root .card-skin-preview[data-preview-skin] .playing-card {
+  border: 0 !important;
+  border-radius: 18px !important;
+}
+
+/* Keep the current bid sum visible in the otherwise empty table center. */
+.prediction-sum {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  gap: 3px;
+  min-width: 112px;
+  padding: 14px 18px;
+  transform: translate(-50%, -50%);
+  border-radius: 14px;
+  background: var(--ivi-surface-raised);
+  color: var(--ivi-text);
+  box-shadow: 0 12px 35px #0003;
+  pointer-events: none;
+}
+
+.prediction-sum span,
+.prediction-sum small {
+  color: var(--ivi-text-muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.prediction-sum strong {
+  color: var(--ivi-accent);
+  font-size: clamp(30px, 7vw, 46px);
+  line-height: 1;
+}
+
+.player-display-options button {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 92px auto;
+  gap: 9px;
+  min-width: 0;
+  min-height: 138px;
+  padding: 9px;
+  border: 1px solid var(--ivi-border);
+  border-radius: 14px;
+  background: var(--ivi-surface);
+  color: var(--ivi-text);
+  text-align: left;
+}
+
+.player-display-preview {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  height: 92px;
+  padding: 12px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--ivi-surface-soft);
+  color: var(--ivi-text);
+}
+
+.preview-avatar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--ivi-surface-raised);
+  color: var(--ivi-text);
+}
+
+.preview-avatar svg,
+.preview-avatar img {
+  width: 65%;
+  height: 65%;
+  object-fit: cover;
+}
+
+.preview-player-copy,
+.player-display-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.preview-player-copy b {
+  overflow: hidden;
+  font-size: 10px;
+  text-overflow: ellipsis;
+}
+
+.preview-player-copy small {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--ivi-text-muted);
+  font-size: 7px;
+}
+
+.preview-player-call {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.preview-player-call strong {
+  font-size: 18px;
+}
+
+.preview-player-call small {
+  color: var(--ivi-text-muted);
+  font-size: 8px;
+}
+
+.player-display-copy {
+  gap: 2px;
+  padding: 0 3px 2px;
+}
+
+.player-display-copy strong {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.player-display-copy small {
+  color: var(--ivi-text-muted);
+  font-size: 8px;
+  line-height: 1.25;
+}
+
+.player-display-check {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: none;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--ivi-accent);
+  color: #0b0b0b;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.player-display-options button.active {
+  border-color: var(--ivi-accent);
+  background: var(--ivi-surface);
+  box-shadow: 0 0 0 1px var(--ivi-accent);
+}
+
+.player-display-options button.active .player-display-check {
+  display: grid;
+}
+
+.player-display-preview[data-preview-display='satellite'] {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 2px;
+}
+
+.player-display-preview[data-preview-display='satellite'] .preview-avatar {
+  width: 42px;
+  height: 42px;
+}
+
+.player-display-preview[data-preview-display='satellite'] .preview-player-copy {
+  justify-items: center;
+}
+
+.player-display-preview[data-preview-display='satellite'] .preview-player-copy small,
+.player-display-preview[data-preview-display='satellite'] .preview-player-call {
+  display: none;
+}
+
+.player-display-preview[data-preview-display='split'] {
+  grid-template-columns: 38px minmax(0, 1fr);
+}
+
+.player-display-preview[data-preview-display='split'] .preview-player-copy,
+.player-display-preview[data-preview-display='split'] .preview-player-call {
+  padding: 5px 7px;
+  background: var(--ivi-surface-raised);
+}
+
+.player-display-preview[data-preview-display='split'] .preview-player-call {
+  grid-column: 2;
+  margin-top: -12px;
+  padding-top: 2px;
+}
+
+.player-display-preview[data-preview-display='tokens'] {
+  grid-template-columns: 46px 34px;
+  justify-content: center;
+}
+
+.player-display-preview[data-preview-display='tokens'] .preview-avatar {
+  width: 46px;
+  height: 46px;
+}
+
+.player-display-preview[data-preview-display='tokens'] .preview-player-copy {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.player-display-preview[data-preview-display='tokens'] .preview-player-copy small {
+  display: none;
+}
+
+.player-display-preview[data-preview-display='tokens'] .preview-player-call {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ivi-surface-raised);
+}
+
+.player-display-preview[data-preview-display='tokens'] .preview-player-call small {
+  display: none;
+}
+
+.player-display-preview[data-preview-display='stems']::before {
+  content: '';
+  position: absolute;
+  left: 39px;
+  right: 35px;
+  top: 45px;
+  border-top: 1px solid var(--ivi-border-strong);
+}
+
+.player-display-preview[data-preview-display='stems'] .preview-avatar,
+.player-display-preview[data-preview-display='stems'] .preview-player-call {
+  z-index: 1;
+}
+
+.player-display-preview[data-preview-display='stems'] .preview-player-copy {
+  position: absolute;
+  left: 9px;
+  bottom: 8px;
+}
+
+.player-display-preview[data-preview-display='stems'] .preview-player-copy small {
+  display: none;
+}
+
+.player-display-preview[data-preview-display='stems'] .preview-player-call {
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: var(--ivi-surface-raised);
+}
+
+.player-display-preview[data-preview-display='baseline'] {
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  height: 56px;
+  margin-block: 18px;
+  padding: 8px 6px;
+  border-radius: 0;
+  border-bottom: 1px solid var(--ivi-border-strong);
+  background: transparent;
+}
+
+.player-display-preview[data-preview-display='baseline'] .preview-avatar {
+  width: 24px;
+  height: 24px;
+}
+
+.player-display-preview[data-preview-display='baseline'] .preview-player-copy small {
+  display: none;
+}
+
+.player-display-preview[data-preview-display='stack'] {
+  border-radius: 5px;
+  background: var(--ivi-surface-raised);
+}
+
+.player-display-preview[data-preview-display='stack'] .preview-avatar {
+  border-radius: 5px;
+}
+
+@media (max-width: 520px) {
+  .player-display-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 360px) {
+  .player-display-options {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,13 +1,6 @@
-import {
-  CircleUserRound,
-  Dot,
-  GripHorizontal,
-  Orbit,
-  Rows3,
-  SplitSquareHorizontal,
-  StretchHorizontal,
-} from 'lucide-react';
-import { useState, type ComponentType } from 'react';
+import { Heart } from 'lucide-react';
+import { useState } from 'react';
+import { AvatarArt } from './Profile';
 
 export type PlayerDisplay =
   'rail' | 'satellite' | 'split' | 'tokens' | 'stems' | 'baseline' | 'stack';
@@ -18,31 +11,47 @@ const DISPLAYS: Array<{
   id: PlayerDisplay;
   name: string;
   description: string;
-  icon: ComponentType<{ size?: number }>;
 }> = [
-  { id: 'rail', name: 'Edge rail', description: 'Compact and easy to scan', icon: GripHorizontal },
-  { id: 'satellite', name: 'Satellites', description: 'Avatars around the table', icon: Orbit },
+  { id: 'rail', name: 'Edge rail', description: 'Compact and easy to scan' },
+  { id: 'satellite', name: 'Satellites', description: 'Avatars around the table' },
   {
     id: 'split',
     name: 'Split badge',
     description: 'Avatar and details separated',
-    icon: SplitSquareHorizontal,
   },
   {
     id: 'tokens',
     name: 'Dual tokens',
     description: 'Avatar plus score token',
-    icon: CircleUserRound,
   },
   {
     id: 'stems',
     name: 'Score stems',
     description: 'Radial table markers',
-    icon: StretchHorizontal,
   },
-  { id: 'baseline', name: 'Baseline', description: 'Minimal type and markers', icon: Dot },
-  { id: 'stack', name: 'Offset stack', description: 'Structured square tiles', icon: Rows3 },
+  { id: 'baseline', name: 'Baseline', description: 'Minimal type and markers' },
+  { id: 'stack', name: 'Offset stack', description: 'Structured square tiles' },
 ];
+
+function PlayerDisplayPreview({ display }: { display: PlayerDisplay }) {
+  return (
+    <span className="player-display-preview" data-preview-display={display} aria-hidden="true">
+      <span className="preview-avatar">
+        <AvatarArt avatar="preset:2" />
+      </span>
+      <span className="preview-player-copy">
+        <b>Alex</b>
+        <small>
+          <Heart size={9} fill="currentColor" /> 8 HP
+        </small>
+      </span>
+      <span className="preview-player-call">
+        <strong>2</strong>
+        <small>/ 1</small>
+      </span>
+    </span>
+  );
+}
 
 const isPlayerDisplay = (value: string | null): value is PlayerDisplay =>
   DISPLAYS.some((display) => display.id === value);
@@ -78,7 +87,7 @@ export function PlayerDisplaySettings() {
         <span>DEVICE</span>
       </div>
       <div className="player-display-options" role="group" aria-label="Player display style">
-        {DISPLAYS.map(({ id, name, description, icon: Icon }) => {
+        {DISPLAYS.map(({ id, name, description }) => {
           const active = display === id;
           return (
             <button
@@ -91,9 +100,14 @@ export function PlayerDisplaySettings() {
                 applyPlayerDisplay(id);
               }}
             >
-              <Icon size={18} />
-              <span>{name}</span>
-              <small>{description}</small>
+              <PlayerDisplayPreview display={id} />
+              <span className="player-display-copy">
+                <strong>{name}</strong>
+                <small>{description}</small>
+              </span>
+              <span className="player-display-check" aria-hidden="true">
+                ✓
+              </span>
             </button>
           );
         })}

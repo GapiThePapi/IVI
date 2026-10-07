@@ -85,12 +85,12 @@ export function PlayingCard({
       title={`Level ${card.level} · ${set.name} · ${card.number} · Strength ${strength(card)}`}
       aria-label={`Level ${card.level}, number ${card.number}`}
     >
-      <span className="card-corner corner-top" aria-hidden="true">
-        {set.label}
-      </span>
-      <span className="card-value">
-        {ROMAN_VALUES[card.number - 1]}
-      </span>
+      {card.level !== 4 && (
+        <span className="card-corner corner-top" aria-hidden="true">
+          {set.label}
+        </span>
+      )}
+      <span className="card-value">{ROMAN_VALUES[card.number - 1]}</span>
       <span className="card-corner corner-bottom" aria-hidden="true">
         {String(card.number).padStart(2, '0')}
       </span>

@@ -92,42 +92,19 @@ function Rules({ close }: { close: () => void }) {
     </Modal>
   );
 }
-function Brand() {
-  return (
-    <span className="brand">
-      <img className="brand-art" src="/assets/ivi-logo.svg" alt="" />
-      <span className="ivi-wordmark" aria-hidden="true">
-        IV<span>I</span>
-      </span>
-      <span className="brand-tag">A GAME OF GOOD GUESSES</span>
-    </span>
-  );
-}
 function Header({
   game,
   connected,
-  onRules,
   onSettings,
   onLeave,
 }: {
   game: GameView | null;
   connected: boolean;
-  onRules: () => void;
   onSettings: () => void;
   onLeave: () => void;
 }) {
   return (
     <header className="site-header">
-      <a
-        className="brand-link"
-        href="/"
-        onClick={(e) => {
-          if (game) e.preventDefault();
-        }}
-        aria-label="IVI home"
-      >
-        <Brand />
-      </a>
       <nav>
         <button className="icon-button" aria-label="Settings" onClick={onSettings}>
           <Settings2 size={19} />
@@ -140,10 +117,6 @@ function Header({
               ? 'Live & together'
               : 'Connecting…'}
         </span>
-        <button className="text-button" aria-label="How to play" onClick={onRules}>
-          <CircleHelp size={17} />
-          <span>How to play</span>
-        </button>
         {game && (
           <button className="icon-button leave-button" aria-label="Leave table" onClick={onLeave}>
             <DoorOpen size={18} />
@@ -852,6 +825,13 @@ function GameTable({
                 aria-label="Players seated clockwise around the table"
               >
                 <div className="poker-felt" aria-hidden="true" />
+                {game.phase === 'bidding' && (
+                  <div className="prediction-sum" role="status" aria-live="polite">
+                    <span>Prediction total</span>
+                    <strong>{game.bidTotal}</strong>
+                    <small>of {game.count} fights</small>
+                  </div>
+                )}
                 <div
                   className={`trick-grid trick-grid-${livePlayers.length}`}
                   aria-label={blind ? 'Blind cards' : 'Cards on the table'}
@@ -1301,7 +1281,6 @@ export default function App() {
         game={game}
         connected={connected}
         onSettings={() => setSettings(true)}
-        onRules={() => setRules(true)}
         onLeave={() =>
           setConfirm({
             title: 'Leave this table?',
@@ -1350,6 +1329,7 @@ export default function App() {
           restoring={restoring}
           connected={connected}
           startPractice={startPractice}
+          onRules={() => setRules(true)}
         />
       ) : game.phase === 'lobby' ? (
         <Lobby game={game} send={send} disabled={disabled} onKick={kick} />

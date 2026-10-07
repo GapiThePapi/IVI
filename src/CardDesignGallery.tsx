@@ -1,17 +1,58 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { applyCardSkin, readCardSkin, type CardSkin } from './CardSkinSettings';
 
 export const CARD_DESIGNS = [
-  { id: 'essential', name: 'IVI Essential', note: 'Confident brand color with crisp, modern information.' },
-  { id: 'casino', name: 'Classic Casino', note: 'Traditional card craft with familiar, high-contrast indices.' },
-  { id: 'neon', name: 'Noir Neon', note: 'Electric table presence for players who prefer a dark theme.' },
-  { id: 'deco', name: 'Art Deco', note: 'A collector-deck feel built from symmetry, navy, and gold.' },
-  { id: 'nordic', name: 'Nordic Minimal', note: 'Calm, spacious, and deliberately free of visual noise.' },
-  { id: 'botanical', name: 'Botanical', note: 'Natural paper, organic linework, and bookish typography.' },
-  { id: 'bauhaus', name: 'Bauhaus Pop', note: 'Playful primary shapes with an unmistakable graphic voice.' },
-  { id: 'arcade', name: 'Retro Arcade', note: 'Pixel energy, vivid edges, and a playful screen-era rhythm.' },
-  { id: 'cosmic', name: 'Cosmic Holographic', note: 'Deep-space color, luminous gradients, and stellar details.' },
-  { id: 'accessible', name: 'High-Contrast', note: 'Maximum legibility with pattern, shape, text, and color cues.' },
+  {
+    id: 'obsidian',
+    name: 'IVI Essential',
+    note: 'Confident brand color with crisp, modern information.',
+  },
+  {
+    id: 'classic',
+    name: 'Classic Casino',
+    note: 'Traditional card craft with familiar, high-contrast indices.',
+  },
+  {
+    id: 'noir',
+    name: 'Noir Neon',
+    note: 'Electric table presence for players who prefer a dark theme.',
+  },
+  {
+    id: 'deco',
+    name: 'Art Deco',
+    note: 'A collector-deck feel built from symmetry, navy, and gold.',
+  },
+  {
+    id: 'nordic',
+    name: 'Nordic Minimal',
+    note: 'Calm, spacious, and deliberately free of visual noise.',
+  },
+  {
+    id: 'atelier',
+    name: 'Botanical',
+    note: 'Natural paper, organic linework, and bookish typography.',
+  },
+  {
+    id: 'pop',
+    name: 'Bauhaus Pop',
+    note: 'Playful primary shapes with an unmistakable graphic voice.',
+  },
+  {
+    id: 'arcade',
+    name: 'Retro Arcade',
+    note: 'Pixel energy, vivid edges, and a playful screen-era rhythm.',
+  },
+  {
+    id: 'cosmic',
+    name: 'Cosmic Holographic',
+    note: 'Deep-space color, luminous gradients, and stellar details.',
+  },
+  {
+    id: 'accessible',
+    name: 'High-Contrast',
+    note: 'Maximum legibility with pattern, shape, text, and color cues.',
+  },
 ] as const;
 
 export const CARD_DESIGN_SAMPLES = [
@@ -52,16 +93,16 @@ function ConceptCard({ sample }: { sample: DesignSample }) {
     >
       <span className="concept-index concept-index-top">
         <b>{sample.value}</b>
-        <small>L{sample.level}</small>
+        {sample.level !== 4 && <small>L{sample.level}</small>}
       </span>
       <span className="concept-center">
         <span className="concept-glyph">{glyph}</span>
         <strong className="concept-value">{sample.value}</strong>
-        <span className="concept-level-label">LEVEL {sample.level}</span>
+        {sample.level !== 4 && <span className="concept-level-label">LEVEL {sample.level}</span>}
       </span>
       <span className="concept-index concept-index-bottom">
         <b>{sample.value}</b>
-        <small>L{sample.level}</small>
+        {sample.level !== 4 && <small>L{sample.level}</small>}
       </span>
     </div>
   );
@@ -71,6 +112,7 @@ export function CardDesignGallery({ close }: { close: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const pointerStart = useRef<number | null>(null);
   const [index, setIndex] = useState(0);
+  const [selected, setSelected] = useState<CardSkin>(readCardSkin);
   const design = CARD_DESIGNS[index];
 
   useEffect(() => {
@@ -111,7 +153,9 @@ export function CardDesignGallery({ close }: { close: () => void }) {
           if (distance > 55) previous();
           if (distance < -55) next();
         }}
-        onPointerCancel={() => { pointerStart.current = null; }}
+        onPointerCancel={() => {
+          pointerStart.current = null;
+        }}
       >
         <section className="design-gallery-intro" aria-live="polite">
           <div>
@@ -133,8 +177,13 @@ export function CardDesignGallery({ close }: { close: () => void }) {
           <ChevronLeft size={20} />
           <span>Previous</span>
         </button>
-        <div className="gallery-progress" aria-label={`Design ${index + 1} of ${CARD_DESIGNS.length}`}>
-          <strong>{index + 1} of {CARD_DESIGNS.length}</strong>
+        <div
+          className="gallery-progress"
+          aria-label={`Design ${index + 1} of ${CARD_DESIGNS.length}`}
+        >
+          <strong>
+            {index + 1} of {CARD_DESIGNS.length}
+          </strong>
           <span className="gallery-dots">
             {CARD_DESIGNS.map((item, itemIndex) => (
               <button
@@ -146,8 +195,24 @@ export function CardDesignGallery({ close }: { close: () => void }) {
               />
             ))}
           </span>
+          <button
+            type="button"
+            className={`gallery-apply ${selected === design.id ? 'selected' : ''}`}
+            onClick={() => {
+              const skin = design.id as CardSkin;
+              applyCardSkin(skin);
+              setSelected(skin);
+            }}
+            aria-pressed={selected === design.id}
+          >
+            {selected === design.id ? 'Selected' : 'Use this design'}
+          </button>
         </div>
-        <button onClick={next} disabled={index === CARD_DESIGNS.length - 1} aria-label="Next card design">
+        <button
+          onClick={next}
+          disabled={index === CARD_DESIGNS.length - 1}
+          aria-label="Next card design"
+        >
           <span>Next</span>
           <ChevronRight size={20} />
         </button>

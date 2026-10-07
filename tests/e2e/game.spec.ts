@@ -44,7 +44,10 @@ async function createTable(browser: Browser, count: number): Promise<Seat[]> {
   for (let i = 1; i < count; i++) {
     const seat = await openSeat(browser, i);
     seats.push(seat);
-    await createProfile(seat.page, ['Alex', 'Maya', 'Luka', 'Nina', 'Sam', 'Theo', 'Eva', 'Kai'][i]);
+    await createProfile(
+      seat.page,
+      ['Alex', 'Maya', 'Luka', 'Nina', 'Sam', 'Theo', 'Eva', 'Kai'][i],
+    );
     await seat.page.getByRole('button', { name: 'Join a lobby', exact: true }).click();
     await seat.page.getByLabel('Lobby code', { exact: true }).fill(code);
     await seat.page.getByRole('button', { name: 'Join lobby', exact: true }).click();
@@ -115,8 +118,12 @@ test('landing, mobile layout, keyboard rules dialog, and LAN-safe request IDs', 
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
+  await page.evaluate(() => localStorage.setItem('ivi-appearance', 'light'));
+  await page.reload();
+  await expect(page.locator('.app-splash')).toHaveCount(0);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: 'test-results/landing-mobile.png', fullPage: true });
+  await page.screenshot({ path: 'design/qa-home-mobile.png', fullPage: true });
   await noOverflow(page);
   await page.evaluate(() => {
     Object.defineProperty(window.crypto, 'randomUUID', { value: undefined, configurable: true });
@@ -138,8 +145,12 @@ test('legacy profile data migrates to the IVI profile without being lost', async
     );
   });
   await page.goto('/');
-  await expect(page.getByRole('button', { name: 'Edit profile' })).toContainText('Returning player');
-  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('ivi-profile') ?? 'null'))).toEqual({
+  await expect(page.getByRole('button', { name: 'Edit profile' })).toContainText(
+    'Returning player',
+  );
+  expect(
+    await page.evaluate(() => JSON.parse(localStorage.getItem('ivi-profile') ?? 'null')),
+  ).toEqual({
     name: 'Returning player',
     avatar: 'preset:2',
   });
@@ -154,7 +165,12 @@ test('four friends complete a round, restore a seat, and continue to four cards'
     await expect(seats[1].page.getByText('Starting lives: 15')).toBeVisible();
     await seats[0].page.screenshot({ path: 'test-results/lobby-desktop.png', fullPage: true });
     await start(seats);
-    expect(seats.every((seat) => seat.view!.players.every((player) => player.hp === 15))).toBe(true);
+    expect(seats.every((seat) => seat.view!.players.every((player) => player.hp === 15))).toBe(
+      true,
+    );
+    await expect(seats[0].page.locator('.prediction-sum')).toContainText(
+      /Prediction total\s*0\s*of 5 fights/,
+    );
     await expect(seats[1].page.getByRole('button', { name: 'Table menu' })).toBeVisible();
     await seats[1].page.getByRole('button', { name: 'Table menu' }).click();
     await expect(
@@ -166,6 +182,7 @@ test('four friends complete a round, restore a seat, and continue to four cards'
       expect(seat.view!.players.find((p) => p.id === seat.view!.youId)!.cards).toHaveLength(5);
     await seats[0].page.screenshot({ path: 'test-results/table-desktop.png', fullPage: true });
     await seats[1].page.screenshot({ path: 'test-results/table-mobile.png', fullPage: true });
+    await seats[1].page.screenshot({ path: 'design/qa-table-mobile.png', fullPage: true });
     await noOverflow(seats[1].page);
     const hand = seats[1].view!.players.find((p) => p.id === seats[1].view!.youId)!.cards;
     await seats[1].page.reload();
