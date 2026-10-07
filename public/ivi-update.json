@@ -1,5 +1,5 @@
 {
-  "version": "1.0.6",
+  "version": "1.0.8",
   "downloadUrl": "https://github.com/GapiThePapi/IVI/releases/latest/download/IVI-Android.apk",
-  "notes": "Adds an offline gallery with ten researched card-design directions, complete card faces, special cards, and coordinated backs."
+  "notes": "Adds seven selectable player displays, improves the IVI header wordmark, and keeps the unified Obsidian dark or light design."
 }

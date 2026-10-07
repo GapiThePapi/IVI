@@ -14,21 +14,21 @@ describe('app updates', () => {
     const fetcher = vi.fn(async () =>
       new Response(
         JSON.stringify({
-          version: '1.0.7',
+          version: '1.0.9',
           downloadUrl: 'https://example.com/IVI.apk',
           notes: 'A tested update.',
         }),
       ),
     );
     await expect(checkForUpdate(fetcher as typeof fetch)).resolves.toMatchObject({
-      version: '1.0.7',
+      version: '1.0.9',
       downloadUrl: 'https://example.com/IVI.apk',
     });
   });
 
   it('does not offer the installed release or an unsafe link', async () => {
     const installed = vi.fn(async () =>
-      new Response(JSON.stringify({ version: '1.0.6', downloadUrl: 'https://example.com/app.apk' })),
+      new Response(JSON.stringify({ version: '1.0.8', downloadUrl: 'https://example.com/app.apk' })),
     );
     const unsafe = vi.fn(async () =>
       new Response(JSON.stringify({ version: '9.0.0', downloadUrl: 'javascript:alert(1)' })),

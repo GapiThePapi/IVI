@@ -32,6 +32,8 @@ import { SoloSetup, DifficultySelect, DIFFICULTY_HELP } from './SoloSetup';
 import { LayoutSettings, applyLayout, readLayout } from './LayoutSettings';
 import { CardSkinSettings } from './CardSkinSettings';
 import { CardDesignGallery } from './CardDesignGallery';
+import { AppearanceSettings } from './AppearanceSettings';
+import { PlayerDisplaySettings } from './PlayerDisplaySettings';
 import type { Difficulty, Card, Command, GameView, PlayerView } from '../shared/types';
 import { PlayingCard, SetMark, SETS } from './Card';
 import { useGame } from './useGame';
@@ -564,9 +566,7 @@ function PlayerSeat({
       <div className="seat-top">
         <Avatar player={player} small />
         <div className="seat-name">
-          <b title={player.name}>
-            {player.name}
-          </b>
+          <b title={player.name}>{player.name}</b>
           <small>
             {player.eliminated
               ? 'Spectating'
@@ -812,11 +812,7 @@ function GameTable({
             <Heart size={14} />
             {livePlayers.length} still standing
           </span>
-          <button
-            className="icon-button"
-            aria-label="Table menu"
-            onClick={() => setManage(true)}
-          >
+          <button className="icon-button" aria-label="Table menu" onClick={() => setManage(true)}>
             <Menu size={22} />
           </button>
         </div>
@@ -879,10 +875,14 @@ function GameTable({
                   const play = game.trick.find((t) => t.playerId === player.id);
                   const leader = fightOrder(game)[0]?.id === player.id;
                   const active = player.id === game.turnId;
+                  const horizontalPosition =
+                    x < 40 ? 'seat-left' : x > 60 ? 'seat-right' : 'seat-center';
+                  const verticalPosition =
+                    y < 40 ? 'seat-top-edge' : y > 60 ? 'seat-bottom-edge' : 'seat-middle';
                   return (
                     <div key={player.id} className="poker-position">
                       <div
-                        className={`poker-seat ${active ? 'poker-seat-active' : ''}`}
+                        className={`poker-seat ${horizontalPosition} ${verticalPosition} ${active ? 'poker-seat-active' : ''}`}
                         style={{ left: `${x}%`, top: `${y}%` }}
                         aria-current={active ? 'true' : undefined}
                       >
@@ -1125,9 +1125,7 @@ function GameTable({
                     <b>
                       {set.label || 'No mark'} · {set.name}
                     </b>
-                    <small>
-                      I–XIII
-                    </small>
+                    <small>I–XIII</small>
                   </div>
                   {i === 0 && <Crown size={13} />}
                 </div>
@@ -1150,13 +1148,31 @@ function GameTable({
       {manage && (
         <Modal title="Table menu" close={() => setManage(false)}>
           <div className="table-menu-actions">
-            <button className="button secondary" onClick={() => { setManage(false); onSettings(); }}>
+            <button
+              className="button secondary"
+              onClick={() => {
+                setManage(false);
+                onSettings();
+              }}
+            >
               <Settings2 size={18} /> Settings
             </button>
-            <button className="button secondary" onClick={() => { setManage(false); onRules(); }}>
+            <button
+              className="button secondary"
+              onClick={() => {
+                setManage(false);
+                onRules();
+              }}
+            >
               <CircleHelp size={18} /> How to play
             </button>
-            <button className="button secondary" onClick={() => { setManage(false); onLeave(); }}>
+            <button
+              className="button secondary"
+              onClick={() => {
+                setManage(false);
+                onLeave();
+              }}
+            >
               <DoorOpen size={18} /> Leave table
             </button>
           </div>
@@ -1368,6 +1384,8 @@ export default function App() {
       {rules && <Rules close={() => setRules(false)} />}
       {settings && (
         <Modal title="Settings" close={() => setSettings(false)}>
+          <AppearanceSettings />
+          <PlayerDisplaySettings />
           <ProfileEditor
             initial={readProfile()}
             onSave={async (profile) => {
@@ -1403,7 +1421,12 @@ export default function App() {
             <button className="button secondary" onClick={() => setUpdate(null)}>
               Later
             </button>
-            <a className="button primary" href={update.downloadUrl} target="_blank" rel="noreferrer">
+            <a
+              className="button primary"
+              href={update.downloadUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
               Download update
             </a>
           </div>

@@ -10,9 +10,14 @@ import './tokens.css';
 import './responsive.css';
 import { isAndroidApp } from './platform';
 import { applyCardSkin, readCardSkin } from './CardSkinSettings';
+import { applyAppearance, readAppearance } from './AppearanceSettings';
+import { applyPlayerDisplay, readPlayerDisplay } from './PlayerDisplaySettings';
+import './obsidian.css';
 
 if (isAndroidApp) document.documentElement.classList.add('native-app');
+applyAppearance(readAppearance());
 applyCardSkin(readCardSkin());
+applyPlayerDisplay(readPlayerDisplay());
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

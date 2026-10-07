@@ -39,3 +39,34 @@ test('entry and settings reflow across supported viewport classes', async ({ pag
   await expect(dialog).toHaveCSS('overflow-y', 'auto');
   await expectNoHorizontalOverflow(page);
 });
+
+test('appearance selection persists between visits', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await page.getByRole('button', { name: /Light Warm white/ }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect(page.getByRole('button', { name: /Light Warm white/ })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+});
+
+test('player display selection persists between visits', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('data-player-display', 'rail');
+
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await page.getByRole('button', { name: /Offset stack Structured square tiles/ }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-player-display', 'stack');
+  await expect(
+    page.getByRole('button', { name: /Offset stack Structured square tiles/ }),
+  ).toHaveAttribute('aria-pressed', 'true');
+
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-player-display', 'stack');
+});

@@ -1,0 +1,1134 @@
+/* IVI Obsidian — the production design system. Imported last on purpose. */
+:root,
+:root[data-theme='dark'] {
+  --ivi-bg: #0b0b0b;
+  --ivi-surface: #151515;
+  --ivi-surface-raised: #1c1c1c;
+  --ivi-surface-soft: #222222;
+  --ivi-text: #f4f2ed;
+  --ivi-text-muted: #969696;
+  --ivi-border: #303030;
+  --ivi-border-strong: #4a4a4a;
+  --ivi-accent: #ff5a1f;
+  --ivi-accent-soft: #ff5a1f1f;
+  --ivi-accent-hover: #ff713d;
+  --ivi-control: #202020;
+  --ivi-card: #181818;
+  --ivi-card-ink: #f8f6f1;
+  --ivi-backdrop: #000000c7;
+  --ivi-danger: #ef6a62;
+  --paper: var(--ivi-bg);
+  --ink: var(--ivi-text);
+  --muted: var(--ivi-text-muted);
+  --green: var(--ivi-accent);
+  --sage: var(--ivi-accent);
+  --line: var(--ivi-border);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --ivi-bg: #f7f7f5;
+  --ivi-surface: #ffffff;
+  --ivi-surface-raised: #ffffff;
+  --ivi-surface-soft: #eeeeeb;
+  --ivi-text: #151515;
+  --ivi-text-muted: #666663;
+  --ivi-border: #d8d8d3;
+  --ivi-border-strong: #a8a8a2;
+  --ivi-accent: #f04f18;
+  --ivi-accent-soft: #f04f1817;
+  --ivi-accent-hover: #d84210;
+  --ivi-control: #f0f0ed;
+  --ivi-card: #fffefa;
+  --ivi-card-ink: #151515;
+  --ivi-backdrop: #11111199;
+  --ivi-danger: #b7352e;
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: var(--ivi-bg);
+  color: var(--ivi-text);
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: 'Manrope', 'DM Sans', sans-serif;
+}
+
+body,
+.native-home,
+.entry-home,
+.game-page,
+.table-surface,
+.landing {
+  background: var(--ivi-bg) !important;
+  color: var(--ivi-text) !important;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(button, a, input, select, summary):focus-visible {
+  outline: 2px solid var(--ivi-accent) !important;
+  outline-offset: 3px;
+}
+
+.site-header {
+  background: color-mix(in srgb, var(--ivi-bg) 92%, transparent) !important;
+  border-color: var(--ivi-border) !important;
+  color: var(--ivi-text) !important;
+}
+
+.brand,
+.brand-link,
+.ivi-wordmark,
+.site-header nav,
+.site-header button,
+.text-button,
+.icon-button {
+  color: var(--ivi-text) !important;
+}
+
+.brand-tag,
+.connection-status,
+.eyebrow,
+.muted,
+.fine-print,
+.difficulty-description,
+.entry-caption,
+.lives-summary,
+.lives-setting label,
+.poker-seat-label,
+.poker-turn > span,
+.table-meta,
+.trick-slot > span,
+.settings-section-heading p,
+.card-skin-copy small {
+  color: var(--ivi-text-muted) !important;
+}
+
+.connection-status > span,
+.live-dot,
+.turn-dot {
+  background: var(--ivi-accent) !important;
+}
+
+.app-splash {
+  background: var(--ivi-bg) !important;
+}
+
+.button,
+.home-actions > button,
+.difficulty-options button,
+.bid-options button,
+.avatar-options button,
+.table-menu-actions button {
+  min-height: 44px;
+  border-radius: 10px !important;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease !important;
+}
+
+.button.primary,
+.button.dark,
+.home-actions > button:first-child {
+  border: 1px solid var(--ivi-border-strong) !important;
+  background: var(--ivi-text) !important;
+  color: var(--ivi-bg) !important;
+  box-shadow: inset 3px 0 0 var(--ivi-accent) !important;
+}
+
+.button.primary:hover:not(:disabled),
+.button.dark:hover:not(:disabled),
+.home-actions > button:first-child:hover {
+  border-color: var(--ivi-accent) !important;
+  background: var(--ivi-text) !important;
+  color: var(--ivi-bg) !important;
+  transform: translateY(-1px);
+}
+
+.button.secondary,
+.home-actions > button:not(:first-child),
+.difficulty-options button,
+.bid-options button,
+.avatar-options button,
+.code-copy {
+  border-color: var(--ivi-border) !important;
+  background: var(--ivi-control) !important;
+  color: var(--ivi-text) !important;
+  box-shadow: none !important;
+}
+
+.difficulty-options button.active,
+.difficulty-options button[aria-pressed='true'],
+.bid-options button[aria-pressed='true'],
+.avatar-options button[aria-pressed='true'] {
+  border-color: var(--ivi-accent) !important;
+  background: var(--ivi-accent-soft) !important;
+  color: var(--ivi-text) !important;
+  box-shadow: inset 0 -2px 0 var(--ivi-accent) !important;
+}
+
+.button.danger {
+  border-color: color-mix(in srgb, var(--ivi-danger) 55%, var(--ivi-border)) !important;
+  background: transparent !important;
+  color: var(--ivi-danger) !important;
+}
+
+.button:disabled,
+button:disabled:not(.hand-card):not(.throw-card) {
+  opacity: 0.42 !important;
+}
+
+.hand-card:disabled,
+.throw-card:disabled {
+  opacity: 1 !important;
+  cursor: default;
+}
+
+input,
+select,
+textarea,
+.lives-setting select {
+  border: 1px solid var(--ivi-border) !important;
+  border-radius: 10px !important;
+  background: var(--ivi-surface) !important;
+  color: var(--ivi-text) !important;
+  box-shadow: none !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--ivi-text-muted) !important;
+}
+
+.entry-home {
+  max-width: 440px;
+}
+
+.home-profile {
+  color: var(--ivi-text) !important;
+}
+
+.home-profile .avatar,
+.avatar,
+.profile-preview {
+  border: 1px solid var(--ivi-border) !important;
+  background: var(--ivi-surface-soft) !important;
+  color: var(--ivi-text) !important;
+}
+
+.home-actions > button {
+  padding: 22px 20px !important;
+  border: 1px solid var(--ivi-border) !important;
+  background: var(--ivi-surface) !important;
+  color: var(--ivi-text) !important;
+}
+
+.home-actions > button svg,
+.button.primary svg,
+.button.dark svg {
+  color: var(--ivi-accent);
+}
+
+.entry-panel,
+.lobby-roster,
+.lobby-sidebar,
+.notice,
+.results-card,
+.solo-setup {
+  border-color: var(--ivi-border) !important;
+  background: var(--ivi-surface) !important;
+  color: var(--ivi-text) !important;
+  box-shadow: none !important;
+}
+
+.entry-panel {
+  border-radius: 14px !important;
+}
+
+.modal {
+  border: 1px solid var(--ivi-border) !important;
+  border-radius: 14px !important;
+  background: var(--ivi-surface-raised) !important;
+  color: var(--ivi-text) !important;
+  box-shadow: 0 24px 80px #0008 !important;
+}
+
+.modal::backdrop,
+.design-gallery-dialog::backdrop {
+  background: var(--ivi-backdrop) !important;
+}
+
+.modal-head,
+.card-skin-settings,
+.layout-settings,
+.appearance-settings,
+.illustrated-rules details,
+.result-row,
+.roster-row {
+  border-color: var(--ivi-border) !important;
+}
+
+.appearance-settings {
+  display: grid;
+  gap: 14px;
+  padding: 4px 0 22px;
+  border-bottom: 1px solid var(--ivi-border);
+}
+
+.player-display-settings {
+  display: grid;
+  gap: 14px;
+  padding: 20px 0 22px;
+  border-bottom: 1px solid var(--ivi-border);
+}
+
+.player-display-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.player-display-options button {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  gap: 1px 9px;
+  min-height: 62px;
+  padding: 11px;
+  border: 1px solid var(--ivi-border);
+  border-radius: 10px;
+  background: var(--ivi-control);
+  color: var(--ivi-text);
+  text-align: left;
+}
+
+.player-display-options button svg {
+  grid-row: 1 / 3;
+  align-self: center;
+  color: var(--ivi-text-muted);
+}
+
+.player-display-options button span {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.player-display-options button small {
+  color: var(--ivi-text-muted);
+  font-size: 9px;
+  line-height: 1.25;
+}
+
+.player-display-options button.active {
+  border-color: var(--ivi-accent);
+  background: var(--ivi-accent-soft);
+  box-shadow: inset 0 -2px 0 var(--ivi-accent);
+}
+
+.player-display-options button.active svg {
+  color: var(--ivi-accent);
+}
+
+.appearance-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.appearance-options button {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  gap: 1px 10px;
+  min-height: 66px;
+  padding: 12px;
+  border: 1px solid var(--ivi-border);
+  border-radius: 10px;
+  background: var(--ivi-control);
+  color: var(--ivi-text);
+  text-align: left;
+}
+
+.appearance-options button svg {
+  grid-row: 1 / 3;
+  align-self: center;
+  color: var(--ivi-text-muted);
+}
+
+.appearance-options button span {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.appearance-options button small {
+  color: var(--ivi-text-muted);
+  font-size: 10px;
+}
+
+.appearance-options button.active {
+  border-color: var(--ivi-accent);
+  background: var(--ivi-accent-soft);
+  box-shadow: inset 0 -2px 0 var(--ivi-accent);
+}
+
+.appearance-options button.active svg {
+  color: var(--ivi-accent);
+}
+
+.settings-section-heading > span,
+.available-now-label {
+  border-radius: 6px !important;
+  background: var(--ivi-surface-soft) !important;
+  color: var(--ivi-text-muted) !important;
+}
+
+.photo-picker {
+  border-color: var(--ivi-border-strong) !important;
+  color: var(--ivi-text) !important;
+}
+
+.card-skin-option,
+.design-gallery-entry {
+  border-color: var(--ivi-border) !important;
+  border-radius: 10px !important;
+  background: var(--ivi-surface) !important;
+  color: var(--ivi-text) !important;
+  box-shadow: none !important;
+}
+
+.card-skin-option.active,
+.design-gallery-entry:hover {
+  border-color: var(--ivi-accent) !important;
+  background: var(--ivi-accent-soft) !important;
+  box-shadow: inset 0 -2px 0 var(--ivi-accent) !important;
+}
+
+.card-skin-preview {
+  background: var(--ivi-surface-soft) !important;
+}
+
+.card-skin-check {
+  background: var(--ivi-accent) !important;
+  color: #0b0b0b !important;
+}
+
+.table-surface,
+.hand-panel {
+  border-color: var(--ivi-border) !important;
+  background: var(--ivi-bg) !important;
+  color: var(--ivi-text) !important;
+  box-shadow: none !important;
+}
+
+.poker-felt {
+  border: 1px solid var(--ivi-border) !important;
+  background: var(--ivi-surface) !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ivi-border) 50%, transparent) !important;
+}
+
+.poker-felt::before,
+.poker-felt::after {
+  border-color: var(--ivi-border) !important;
+  opacity: 0.65;
+}
+
+.poker-seat .player-seat {
+  border: 1px solid var(--ivi-border) !important;
+  border-radius: 10px !important;
+  background: var(--ivi-surface-raised) !important;
+  color: var(--ivi-text) !important;
+  box-shadow: none !important;
+}
+
+.poker-seat-active .player-seat {
+  border-color: var(--ivi-accent) !important;
+  box-shadow:
+    inset 0 -2px 0 var(--ivi-accent),
+    0 0 0 3px var(--ivi-accent-soft) !important;
+}
+
+.poker-seat-active .poker-seat-label,
+.poker-seat-active .seat-name b,
+.poker-turn strong,
+.call-progress,
+.your-hp .call-progress {
+  color: var(--ivi-accent) !important;
+}
+
+.poker-seat .hp,
+.poker-seat .call-count small,
+.host-crown,
+.seat-crown,
+.hp svg,
+.ready-status {
+  color: var(--ivi-text-muted) !important;
+}
+
+.poker-seat .seat-name b,
+.poker-seat .call-count strong,
+.poker-seat .call-count strong span,
+.waiting-action b {
+  color: var(--ivi-text) !important;
+}
+
+/* Seven player-marker systems selected from the IVI table explorations. */
+:root[data-player-display] .poker-seat {
+  width: 126px;
+}
+
+:root[data-player-display] .poker-seat .player-seat {
+  position: relative;
+  min-height: 0;
+}
+
+:root[data-player-display] .poker-seat .seat-top {
+  min-width: 0;
+}
+
+:root[data-player-display] .poker-seat .seat-top > .avatar {
+  display: grid;
+  flex: 0 0 auto;
+}
+
+:root[data-player-display] .poker-seat .seat-name small,
+:root[data-player-display] .poker-seat .seat-crown {
+  display: none;
+}
+
+:root[data-player-display] .poker-seat .seat-name b {
+  max-width: 100%;
+}
+
+:root[data-player-display] .poker-seat .seat-remove {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+}
+
+/* 01 — Edge rail: compact horizontal identity strips tangent to the table. */
+:root[data-player-display='rail'] .poker-seat .player-seat {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 7px;
+  padding: 7px 8px !important;
+  border-radius: 8px !important;
+}
+
+:root[data-player-display='rail'] .poker-seat .seat-top {
+  display: flex;
+  gap: 7px;
+  justify-content: flex-start;
+}
+
+:root[data-player-display='rail'] .poker-seat .avatar {
+  width: 28px;
+  height: 28px;
+}
+
+:root[data-player-display='rail'] .poker-seat .seat-name {
+  align-self: center;
+}
+
+:root[data-player-display='rail'] .poker-seat .seat-name b {
+  font-size: 11px;
+}
+
+:root[data-player-display='rail'] .poker-seat .seat-stats {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  margin: 0;
+}
+
+:root[data-player-display='rail'] .poker-seat .call-count strong,
+:root[data-player-display='rail'] .poker-seat .call-count strong span {
+  font-size: 17px;
+}
+
+:root[data-player-display='rail'] .poker-seat-active .player-seat {
+  box-shadow:
+    inset 3px 0 0 var(--ivi-accent),
+    0 0 0 3px var(--ivi-accent-soft) !important;
+}
+
+/* 02 — Avatar satellites: identity-led circular markers with quiet metadata. */
+:root[data-player-display='satellite'] .poker-seat {
+  width: 86px;
+}
+
+:root[data-player-display='satellite'] .poker-seat .player-seat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+:root[data-player-display='satellite'] .poker-seat .seat-top {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+:root[data-player-display='satellite'] .poker-seat .avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50% !important;
+}
+
+:root[data-player-display='satellite'] .poker-seat .seat-name b {
+  font-size: 10px;
+}
+
+:root[data-player-display='satellite'] .poker-seat .seat-stats {
+  gap: 5px;
+  margin: 0;
+}
+
+:root[data-player-display='satellite'] .poker-seat .call-count strong,
+:root[data-player-display='satellite'] .poker-seat .call-count strong span {
+  font-size: 15px;
+}
+
+:root[data-player-display='satellite'] .poker-seat-active .avatar {
+  border-color: var(--ivi-accent) !important;
+  box-shadow: 0 0 0 3px var(--ivi-accent-soft) !important;
+}
+
+:root[data-player-display='satellite'] .poker-seat-active .player-seat {
+  box-shadow: none !important;
+}
+
+/* 03 — Split badge: a rim badge connected to a separate information block. */
+:root[data-player-display='split'] .poker-seat {
+  width: 108px;
+}
+
+:root[data-player-display='split'] .poker-seat .player-seat {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 7px;
+  padding: 6px !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+:root[data-player-display='split'] .poker-seat .player-seat::before {
+  content: '';
+  position: absolute;
+  left: 36px;
+  top: 50%;
+  width: 13px;
+  border-top: 1px solid var(--ivi-border-strong);
+  z-index: -1;
+}
+
+:root[data-player-display='split'] .poker-seat .seat-top {
+  display: contents;
+}
+
+:root[data-player-display='split'] .poker-seat .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50% !important;
+}
+
+:root[data-player-display='split'] .poker-seat .seat-name,
+:root[data-player-display='split'] .poker-seat .seat-stats {
+  padding: 4px 6px;
+  border: 1px solid var(--ivi-border);
+  background: var(--ivi-surface-raised);
+}
+
+:root[data-player-display='split'] .poker-seat .seat-name {
+  grid-column: 2;
+  align-self: end;
+  padding-bottom: 1px;
+  border-bottom: 0;
+  border-radius: 7px 7px 0 0;
+}
+
+:root[data-player-display='split'] .poker-seat .seat-stats {
+  grid-column: 2;
+  margin: -7px 0 0;
+  padding-top: 2px;
+  border-top: 0;
+  border-radius: 0 0 7px 7px;
+}
+
+:root[data-player-display='split'] .poker-seat-active .avatar,
+:root[data-player-display='split'] .poker-seat-active .seat-name,
+:root[data-player-display='split'] .poker-seat-active .seat-stats {
+  border-color: var(--ivi-accent) !important;
+}
+
+:root[data-player-display='split'] .poker-seat-active .player-seat {
+  box-shadow: none !important;
+}
+
+/* 04 — Dual tokens: avatar and score are equal parts of one marker. */
+:root[data-player-display='tokens'] .poker-seat {
+  width: 106px;
+}
+
+:root[data-player-display='tokens'] .poker-seat .player-seat {
+  display: grid;
+  grid-template-columns: 46px 34px;
+  justify-content: center;
+  min-height: 65px;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+:root[data-player-display='tokens'] .poker-seat .seat-top {
+  display: contents;
+}
+
+:root[data-player-display='tokens'] .poker-seat .avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50% !important;
+}
+
+:root[data-player-display='tokens'] .poker-seat .seat-name {
+  position: absolute;
+  top: 49px;
+  left: 50%;
+  width: 120px;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+:root[data-player-display='tokens'] .poker-seat .seat-stats {
+  position: relative;
+  grid-column: 2;
+  height: 46px;
+  justify-content: flex-start;
+  gap: 0;
+  margin: 0 0 0 -8px;
+}
+
+:root[data-player-display='tokens'] .poker-seat .seat-call {
+  order: -1;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-top: 8px;
+  border: 1px solid var(--ivi-border-strong);
+  border-radius: 50%;
+  background: var(--ivi-surface-raised);
+}
+
+:root[data-player-display='tokens'] .poker-seat .hp {
+  position: absolute;
+  right: -4px;
+  bottom: 0;
+  font-size: 8px;
+}
+
+:root[data-player-display='tokens'] .poker-seat .call-count strong,
+:root[data-player-display='tokens'] .poker-seat .call-count strong span {
+  font-size: 11px;
+}
+
+:root[data-player-display='tokens'] .poker-seat-active .seat-call {
+  border-color: var(--ivi-accent);
+  color: var(--ivi-accent);
+}
+
+:root[data-player-display='tokens'] .poker-seat-active .player-seat {
+  box-shadow: none !important;
+}
+
+/* 05 — Score stems: a radial marker with the score pulled toward the felt. */
+:root[data-player-display='stems'] .poker-seat {
+  width: 104px;
+}
+
+:root[data-player-display='stems'] .poker-seat .player-seat {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+:root[data-player-display='stems'] .poker-seat .player-seat::after {
+  content: '';
+  position: absolute;
+  left: 31px;
+  right: 23px;
+  top: 24px;
+  border-top: 1px solid var(--ivi-border-strong);
+}
+
+:root[data-player-display='stems'] .poker-seat .seat-top {
+  display: contents;
+}
+
+:root[data-player-display='stems'] .poker-seat .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50% !important;
+  z-index: 1;
+}
+
+:root[data-player-display='stems'] .poker-seat .seat-name {
+  position: absolute;
+  left: 0;
+  top: 38px;
+  width: 42px;
+  text-align: center;
+}
+
+:root[data-player-display='stems'] .poker-seat .seat-stats {
+  grid-column: 2;
+  z-index: 1;
+  margin: 0;
+  padding: 3px 5px;
+  border: 1px solid var(--ivi-border);
+  border-radius: 7px;
+  background: var(--ivi-bg);
+}
+
+:root[data-player-display='stems'] .poker-seat .hp {
+  position: absolute;
+  left: 2px;
+  top: 51px;
+  display: inline-flex;
+  font-size: 8px;
+}
+
+:root[data-player-display='stems'] .poker-seat .call-count strong,
+:root[data-player-display='stems'] .poker-seat .call-count strong span {
+  font-size: 15px;
+}
+
+:root[data-player-display='stems'] .poker-seat-active .player-seat {
+  box-shadow: none !important;
+}
+
+:root[data-player-display='stems'] .poker-seat-active .seat-stats,
+:root[data-player-display='stems'] .poker-seat-active .avatar {
+  border-color: var(--ivi-accent) !important;
+}
+
+/* 06 — Baseline markers: almost no container, only the essential reading line. */
+:root[data-player-display='baseline'] .poker-seat {
+  width: 112px;
+}
+
+:root[data-player-display='baseline'] .poker-seat .player-seat {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 3px !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ivi-border-strong) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+:root[data-player-display='baseline'] .poker-seat .player-seat::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  bottom: -4px;
+  height: 7px;
+  border-left: 1px solid var(--ivi-border-strong);
+}
+
+:root[data-player-display='baseline'] .poker-seat .seat-top {
+  display: contents;
+}
+
+:root[data-player-display='baseline'] .poker-seat .avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50% !important;
+}
+
+:root[data-player-display='baseline'] .poker-seat .seat-name b {
+  font-size: 10px;
+}
+
+:root[data-player-display='baseline'] .poker-seat .seat-stats {
+  gap: 3px;
+  margin: 0;
+}
+
+:root[data-player-display='baseline'] .poker-seat .hp {
+  display: inline-flex;
+  font-size: 8px;
+}
+
+:root[data-player-display='baseline'] .poker-seat .call-count strong,
+:root[data-player-display='baseline'] .poker-seat .call-count strong span {
+  font-size: 14px;
+}
+
+:root[data-player-display='baseline'] .poker-seat-active .player-seat {
+  border-bottom-color: var(--ivi-accent) !important;
+  box-shadow: none !important;
+}
+
+/* 07 — Offset stacks: square avatar tile, type stack, and active orange rule. */
+:root[data-player-display='stack'] .poker-seat {
+  width: 112px;
+}
+
+:root[data-player-display='stack'] .poker-seat .player-seat {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0 8px;
+  padding: 6px !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+  background: var(--ivi-surface-raised) !important;
+}
+
+:root[data-player-display='stack'] .poker-seat .seat-top {
+  display: contents;
+}
+
+:root[data-player-display='stack'] .poker-seat .avatar {
+  grid-row: 1 / 3;
+  width: 34px;
+  height: 34px;
+  border-radius: 3px !important;
+}
+
+:root[data-player-display='stack'] .poker-seat .seat-name {
+  align-self: end;
+}
+
+:root[data-player-display='stack'] .poker-seat .seat-stats {
+  grid-column: 2;
+  justify-content: flex-start;
+  gap: 4px;
+  margin: 0;
+}
+
+:root[data-player-display='stack'] .poker-seat .call-count strong,
+:root[data-player-display='stack'] .poker-seat .call-count strong span {
+  font-size: 15px;
+}
+
+:root[data-player-display='stack'] .poker-seat-active .player-seat {
+  box-shadow: inset 3px 0 0 var(--ivi-accent) !important;
+}
+
+.brand .ivi-wordmark {
+  min-width: 48px;
+  letter-spacing: -0.035em !important;
+}
+
+.waiting-action > span,
+.waiting-action .soft-icon,
+.forbidden-note,
+.throw-help {
+  color: var(--ivi-text-muted) !important;
+}
+
+.ready-status,
+.player-row,
+.fight-row {
+  border-color: var(--ivi-border) !important;
+  background: var(--ivi-control) !important;
+  color: var(--ivi-text) !important;
+}
+
+.hand-card.selected {
+  outline: 2px solid var(--ivi-accent) !important;
+  outline-offset: 3px;
+  transform: translateY(-5px);
+}
+
+.selection-check {
+  background: var(--ivi-accent) !important;
+  color: #0b0b0b !important;
+}
+
+.toast,
+.connection-banner {
+  border-color: var(--ivi-border) !important;
+  background: var(--ivi-surface-raised) !important;
+  color: var(--ivi-text) !important;
+}
+
+/* Obsidian is the signature production card. Levels use labels and patterns. */
+:root[data-card-skin='obsidian'] .playing-card,
+.card-skin-preview[data-preview-skin='obsidian'] .playing-card {
+  --card-color: var(--ivi-card-ink);
+  overflow: hidden;
+  border: 1px solid var(--ivi-border-strong);
+  border-radius: 8px;
+  background-color: var(--ivi-card);
+  color: var(--ivi-card-ink);
+  box-shadow: 0 8px 18px #0005;
+}
+
+:root[data-card-skin='obsidian'] .playing-card.level-1,
+.card-skin-preview[data-preview-skin='obsidian'] .playing-card.level-1 {
+  background-image: repeating-linear-gradient(0deg, transparent 0 18px, #ffffff0b 18px 19px);
+}
+
+:root[data-card-skin='obsidian'] .playing-card.level-2,
+.card-skin-preview[data-preview-skin='obsidian'] .playing-card.level-2 {
+  background-image: repeating-linear-gradient(45deg, transparent 0 17px, #ffffff0b 17px 18px);
+}
+
+:root[data-card-skin='obsidian'] .playing-card.level-3,
+.card-skin-preview[data-preview-skin='obsidian'] .playing-card.level-3 {
+  background-image: radial-gradient(#ffffff16 1px, transparent 1.2px);
+  background-size: 11px 11px;
+}
+
+:root[data-card-skin='obsidian'] .playing-card.level-4,
+.card-skin-preview[data-preview-skin='obsidian'] .playing-card.level-4 {
+  background-image: repeating-linear-gradient(135deg, transparent 0 9px, #ff5a1f16 9px 10px);
+}
+
+:root[data-card-skin='obsidian'] .card-value,
+.card-skin-preview[data-preview-skin='obsidian'] .card-value {
+  color: var(--ivi-card-ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 42cqw;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+}
+
+:root[data-card-skin='obsidian'] .card-corner,
+.card-skin-preview[data-preview-skin='obsidian'] .card-corner {
+  color: var(--ivi-card-ink);
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(8px, 1.2vw, 12px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+:root[data-card-skin='obsidian'] .corner-top,
+.card-skin-preview[data-preview-skin='obsidian'] .corner-top {
+  color: var(--ivi-accent);
+}
+
+:root[data-card-skin='obsidian'] .card-back,
+.card-skin-preview[data-preview-skin='obsidian'] .card-back {
+  border-color: var(--ivi-border-strong);
+  background: repeating-linear-gradient(
+    135deg,
+    var(--ivi-card) 0 9px,
+    var(--ivi-surface-soft) 9px 10px
+  );
+  box-shadow:
+    inset 0 0 0 4px var(--ivi-card),
+    inset 0 0 0 5px var(--ivi-accent),
+    0 8px 18px #0005;
+}
+
+:root[data-card-skin='obsidian'] .card-back-logo,
+.card-skin-preview[data-preview-skin='obsidian'] .card-back-logo {
+  filter: grayscale(1) brightness(0) invert(1);
+  opacity: 0.84;
+}
+
+:root[data-card-skin='obsidian'] .special-card,
+.card-skin-preview[data-preview-skin='obsidian'] .special-card {
+  border-color: var(--ivi-accent);
+  background: var(--ivi-card);
+  box-shadow:
+    inset 3px 0 0 var(--ivi-accent),
+    0 8px 18px #0005;
+}
+
+:root[data-card-skin='obsidian'] .special-choice,
+.card-skin-preview[data-preview-skin='obsidian'] .special-choice {
+  color: var(--ivi-accent);
+  font-family: 'Manrope', sans-serif;
+}
+
+:root[data-theme='light'][data-card-skin='obsidian'] .playing-card,
+:root[data-theme='light'] .card-skin-preview[data-preview-skin='obsidian'] .playing-card {
+  --ivi-card: #fffefa;
+  --ivi-card-ink: #151515;
+  box-shadow: 0 7px 16px #1515151c;
+}
+
+:root[data-theme='light'][data-card-skin='obsidian'] .card-back-logo,
+:root[data-theme='light'] .card-skin-preview[data-preview-skin='obsidian'] .card-back-logo {
+  filter: none;
+}
+
+.design-gallery-dialog,
+.design-gallery-head,
+.design-gallery-footer {
+  border-color: var(--ivi-border) !important;
+  background: var(--ivi-bg) !important;
+  color: var(--ivi-text) !important;
+}
+
+.gallery-dots button {
+  background: var(--ivi-border-strong) !important;
+}
+
+.gallery-dots button.active {
+  background: var(--ivi-accent) !important;
+}
+
+@media (max-width: 520px) {
+  .appearance-options {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .player-display-options {
+    grid-template-columns: 1fr;
+  }
+
+  :root[data-player-display] .poker-table-dense .poker-seat {
+    scale: 0.88;
+  }
+
+  .brand .ivi-wordmark {
+    min-width: 43px;
+    letter-spacing: -0.02em !important;
+  }
+
+  .home-actions > button {
+    padding: 20px 18px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,22 +1,48 @@
-# Minimal Decki design QA
+# Player Display Design QA
 
-Source visual truth: .codex-remote-attachments/01a1021d-7c36-7a02-9196-ccb28582c0bb/2b1409ae-fbe0-4aec-b360-9493a75badb9/1-1000010762.jpg (1280 x 853).
-Implementation evidence: test-results/minimal-phone.png (390 x 844 CSS/pixel viewport, 1x), test-results/minimal-compact.png (360 x 740, 1x). Desktop reviewed at 1100 x 850. State: offline practice, second fight, human turn, partial-progress orange count.
+## Evidence
 
-## Comparison
-Reference and phone screenshot opened together in one image comparison input. Source is a card sheet, not a whole-screen mockup; compare card faces proportionally, and assess the surrounding table against the user's written requirements. Source cards approximately 220 x 356; app cards approximately 68 x 97 on mobile. Intentional adaptations: compact game proportions, corner numerals indicate level 1–4 (earlier user requirement), center Roman numeral indicates value I–X, bottom corner rotated for card orientation. Cards are semantic game controls with actual selectable text/value content, not decorative image assets.
+- Source visual truth: the seven approved ImageGen concepts:
+  - `C:\Users\Locardo\.codex\generated_images\01a11303-3b3e-7123-970c-abab6efc3132\exec-b53f6ea8-b0d3-4c9d-aea4-7da518047579.png`
+  - `C:\Users\Locardo\.codex\generated_images\01a11303-3b3e-7123-970c-abab6efc3132\exec-fea82985-4b14-4674-877b-e985afc0614b.png`
+  - `C:\Users\Locardo\.codex\generated_images\01a11303-3b3e-7123-970c-abab6efc3132\exec-906d6922-7833-409d-8e6c-0c415ae646ea.png`
+  - `C:\Users\Locardo\.codex\generated_images\01a11303-3b3e-7123-970c-abab6efc3132\exec-142889a4-0f03-49c2-b6a7-b18eb3b80ff1.png`
+  - `C:\Users\Locardo\.codex\generated_images\01a11303-3b3e-7123-970c-abab6efc3132\exec-a757e760-db55-4716-a246-444c8adca176.png`
+  - `C:\Users\Locardo\.codex\generated_images\01a11303-3b3e-7123-970c-abab6efc3132\exec-c30db85e-47b0-4642-a322-3dade85f37ed.png`
+  - `C:\Users\Locardo\.codex\generated_images\01a11303-3b3e-7123-970c-abab6efc3132\exec-c70b628f-72a5-426f-b05f-ab9904612204.png`
+- Browser-rendered implementation screenshots: `output/player-display-{rail,satellite,split,tokens,stems,baseline,stack}.png`.
+- Full-view paired comparison: `output/player-display-design-qa.jpg`.
+- Focused table-region comparison: `output/player-display-design-qa-tables.jpg`.
+- Viewport and state: Chrome, 390 × 844 CSS px, deviceScaleFactor 1, dark theme, Obsidian cards, four-player solo game during the call phase.
+- Source dimensions: 853 × 1844 px. Each source was normalized to 390 × 844 px for comparison. Implementation captures are native 390 × 844 px.
+- Primary interactions tested: opening Settings, changing appearance, changing player display, persistence after reload, starting a solo game, and rendering all seven display styles.
+- Console errors checked: none in the final capture.
 
-Typography: black Times-style serif card values; simple sans-serif controls; enlarged won/call counts. Spacing: hand centered, owners and cards grouped, numbered play sequence. Colors: neutral black by default, green exact, orange partial progress. Image fidelity: plain white faces, thin black outline, rounded corners; no illustrations to recreate. Copy: Leads, Played, Waiting, Your turn, Won / Call.
+## Findings
 
-## Findings and iterations
-- Initial mobile play-order labels truncated by an inherited maximum width. Removed that limit and recaptured; complete labels visible.
-- Initial compact screen clipped the bottom row of cards. Reduced redundant space above and within the table; recaptured at 360 x 740. All four cards and the hand remain visible. The table independently scrolls for history/larger games.
-- No remaining actionable P0/P1/P2 differences in the reviewed views.
+- No actionable P0, P1, or P2 differences remain.
+- Fonts and typography: Manrope/DM Sans preserve the narrow utilitarian hierarchy of the concepts. Player names, call counts, HP, and active-turn labels remain legible at phone size.
+- Spacing and layout rhythm: all seven markers follow the circular table edge without document overflow. The implementation uses slightly smaller markers than the exploratory images to preserve the existing hand and gameplay controls in the 390 px app viewport; this is an intentional product constraint.
+- Colors and visual tokens: the black surfaces, low-contrast gray rules, white information, and restrained orange active state match the selected direction in both dark and light design tokens.
+- Image quality and asset fidelity: the app uses its existing vector avatar system and user photos. AI players show real app avatar data instead of the illustrative portrait photography used in one concept; this is intentional and avoids introducing fake profile content.
+- Copy and content: player name, call/wins, HP, and turn/lead state remain present. Existing game terminology is preserved.
+- Accessibility and responsiveness: controls retain accessible names and pressed states; the document width equals the 390 px viewport; the selection persists in local storage.
 
-## Interaction evidence
-Browser tested a complete upward drag: the selected card left the hand and appeared under its owner. Tapping and dragging less than the threshold did not play. Offline bots advance normally. No browser console errors. TypeScript check and production build passed; 47 unit/integration tests passed, including gesture direction, call colors, and clockwise order from leader. Existing browser test sources updated for gestures/keyboard play; their CLI suites were not run. Physical Android touch behavior remains unverified; browser pointer drag verified.
+## Comparison History
 
-## Follow-up polish
-No blocking polish items. No physical-device screenshot available in this environment.
+- Initial comparison found that Dual tokens constrained names beside the score token and that Score stems/Baseline hid HP.
+- Fixes: moved Dual token names below the paired circles, restored compact HP indicators to Score stems and Baseline, and recaptured every style.
+- Post-fix evidence: `output/player-display-design-qa-tables.jpg` shows full names where space permits, distinct avatar/score geometry, visible HP, and no marker collisions that block gameplay information.
+
+## Follow-up Polish
+
+- P3: user-supplied photo avatars will make the Satellite style feel closer to its concept than preset line icons; no code change is required.
+
+## Implementation Checklist
+
+- [x] Seven approved player displays implemented.
+- [x] Persistent Settings selector implemented.
+- [x] IVI wordmark spacing widened at mobile and desktop widths.
+- [x] Mobile overflow, persistence, production build, and browser rendering verified.
 
 final result: passed

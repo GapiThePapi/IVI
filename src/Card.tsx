@@ -3,10 +3,10 @@ import type { Card } from '../shared/types';
 import { strength } from '../shared/engine';
 
 export const SETS = [
-  { name: 'Tide', label: '', color: '#57828d' },
-  { name: 'Grove', label: 'X', color: '#62836c' },
-  { name: 'Dusk', label: 'XX', color: '#9380ab' },
-  { name: 'Ember', label: 'XXX', color: '#cc7556' },
+  { name: 'Tide', label: 'L1', color: '#ff5a1f' },
+  { name: 'Grove', label: 'L2', color: '#ff5a1f' },
+  { name: 'Dusk', label: 'L3', color: '#ff5a1f' },
+  { name: 'Ember', label: 'L4', color: '#ff5a1f' },
 ];
 const ROMAN_VALUES = [
   'I',
@@ -92,7 +92,7 @@ export function PlayingCard({
         {ROMAN_VALUES[card.number - 1]}
       </span>
       <span className="card-corner corner-bottom" aria-hidden="true">
-        {set.label}
+        {String(card.number).padStart(2, '0')}
       </span>
     </div>
   );

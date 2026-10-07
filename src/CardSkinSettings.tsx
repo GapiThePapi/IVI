@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { PlayingCard } from './Card';
 
 export const CARD_SKINS = [
+  { id: 'obsidian', name: 'Obsidian', description: 'The IVI signature' },
   { id: 'classic', name: 'Classic', description: 'Clean & timeless' },
   { id: 'noir', name: 'Noir', description: 'Dark & electric' },
   { id: 'pop', name: 'Pop', description: 'Bold & playful' },
@@ -13,9 +14,9 @@ export type CardSkin = (typeof CARD_SKINS)[number]['id'];
 export function readCardSkin(): CardSkin {
   try {
     const saved = localStorage.getItem('ivi-card-skin');
-    return CARD_SKINS.some((skin) => skin.id === saved) ? (saved as CardSkin) : 'classic';
+    return CARD_SKINS.some((skin) => skin.id === saved) ? (saved as CardSkin) : 'obsidian';
   } catch {
-    return 'classic';
+    return 'obsidian';
   }
 }
 
@@ -61,7 +62,7 @@ export function CardSkinSettings({ onExplore }: { onExplore: () => void }) {
             }}
           >
             <span className="card-skin-preview" data-preview-skin={option.id} aria-hidden="true">
-              <PlayingCard card={{ id: `skin-${option.id}`, level: index + 1, number: 7 }} />
+              <PlayingCard card={{ id: `skin-${option.id}`, level: (index % 4) + 1, number: 7 }} />
             </span>
             <span className="card-skin-copy">
               <strong>{option.name}</strong>

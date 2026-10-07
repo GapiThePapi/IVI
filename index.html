@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#fafaf8" />
+    <meta name="theme-color" content="#0b0b0b" />
+    <script>
+      try {
+        const theme = localStorage.getItem('ivi-appearance') === 'light' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
     <meta
       name="description"
       content="IVI. A little prediction. A little nerve. A multiplayer card game for your favorite people."
